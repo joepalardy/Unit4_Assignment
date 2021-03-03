@@ -1,0 +1,141 @@
+---
+md_document:
+  variant: gfm
+output:
+  html_document: null
+  df_print: paged
+  md_document: default
+title: "Unit 4 Application"
+---
+  
+```{r initialize, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+set.seed(1)
+library(tidyverse)
+library(haven)
+library(tidymodels)
+atlas_training <- read_dta("data/atlas_training.dta")
+atlas_test <- read_dta("data/atlas_test.dta")
+atlas_full <- atlas_training %>% 
+  left_join(atlas_test) %>% 
+  mutate(kfr_pooled_p25 = ifelse(is.na(kfr_pooled_p25), kfr_actual, kfr_pooled_p25)) %>% select(-kfr_actual)
+glimpse(atlas_full)
+training_data <- atlas_training %>% filter(test == 0) %>% select(-test, -training)
+testing_data <- atlas_full %>% filter(test ==1)%>% select(-test, -training)
+
+
+```
+
+In this assignment, you will be predicting the average percentile rank in terms of national income distribution for children with parents at the 25th percentile of the national income distribution. In other words, this is a measure of if children of relatively low income parents moved up or down in terms of income distribution. The data are from the Opportunity Atlas (Chetty, Raj, John Friedman, Nathaniel Hendren, Maggie R. Jones, and Sonya R. Porter. 2018. “The Opportunity Atlas: Mapping the Childhood Roots of Social Mobility.” NBER Working Paper No. 25147). 
+
+
+## Question 1
+In this question you will obtain predictions for kfr_pooled_p25 using only the training set to determine the number of predictors via backward and forward selection. Use only P1 through P212 as predictors. Do not include geoid as a predictor.
+
+a. Using Cross-Validation, select the number of predictors via best MSE or one-standard-error rule.
+b. Estimate the the model using the full training data (not just the folds) using the number of predictors from a.
+c. How many predictors did you select? Where the selections very different between forward and backward selection?
+d. Calculate the in-sample training MSE.
+e. Calculate the test MSE using the test data.
+### Answer
+
+```{r Q1}
+library(leaps)
+
+
+```
+
+
+
+*************************************
+
+## Question 2
+In this question you will obtain predictions for kfr_pooled_p25 using only the training set to determine the number of predictors via ridge regression and LASSO. 
+
+a. Using Cross-Validation, select the penalty for both Ridge Regression and LASSO.
+b. Estimate the the model using the full training data.
+c. Calculate the in-sample training MSE.
+d. Calculate the test MSE using the test data.
+e. How many predictors did LASSO select?
+
+
+
+### Answer
+
+```{r Q2}
+
+
+```
+
+
+
+
+*************************************
+
+
+
+## Question 3
+In this question you will obtain predictions for kfr_pooled_p25 using only the training set to determine the number of predictors via principal component regression. 
+
+a. Using Cross-Validation, select the number of components to use in your final model.
+b. How much of the variability of the predictors was accounting for by that number of components.
+c. Estimate the the principal components regression model using the full training data.
+d. Calculate the in-sample training MSE.
+e. Calculate the test MSE using the test data.
+
+
+
+
+### Answer
+
+```{r Q3}
+
+
+
+
+```
+
+
+
+
+*************************************
+
+
+## Question 4
+
+In this question you will obtain predictions for kfr_pooled_p25 using only the training set to determine the number of predictors via partial least squares regression. 
+
+a. Using Cross-Validation, select the number of components to use in your final model.
+b. Estimate the the partial least squares regression model using the full training data.
+c. Calculate the in-sample training MSE.
+d. Calculate the test MSE using the test data.
+
+
+
+### Answer
+
+
+```{r Q4, message = F}
+
+
+```
+
+
+
+
+*************************************
+
+
+
+## Question 5
+Answer the following:
+
+a. Which of your models performed the best? 
+b. Which of your models performed the worst?
+c. Were there any patterns to the variables that LASSO, forward selection, and backward selection picked?
+
+
+
+### Answer
+
+
