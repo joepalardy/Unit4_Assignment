@@ -30,17 +30,37 @@ In this assignment, you will be predicting the average percentile rank in terms 
 
 
 ## Question 1
-In this question you will obtain predictions for kfr_pooled_p25 using only the training set to determine the number of predictors via backward and forward selection. Use only P1 through P212 as predictors. Do not include geoid as a predictor.
+In this question you will obtain predictions for kfr_pooled_p25 using only the training set to determine the number of predictors via backward and forward selection. Use only P1 through P121 as predictors. Do not include geoid, place, pop, or housing as a predictors.
 
 a. Using Cross-Validation, select the number of predictors via best MSE or one-standard-error rule.
 b. Estimate the the model using the full training data (not just the folds) using the number of predictors from a.
-c. How many predictors did you select? Where the selections very different between forward and backward selection?
+c. How many predictors did you select? Were the selections very different between forward and backward selection?
 d. Calculate the in-sample training MSE.
 e. Calculate the test MSE using the test data.
 ### Answer
 
 ```{r Q1}
 library(leaps)
+
+
+mse.regsubsets.all <- function (y, object, newdata,...){
+
+  form=as.formula(paste0(y, "~."))
+  mat=model.matrix(form,newdata)
+  yvar=model.frame(form,newdata)[,1]
+  p <- object$nvmax-1
+  mse <- rep(0,p)
+  for(j in 1:p)
+    
+  {coefi=coef(object , id=j)
+  xvars =names(coefi)
+  pred <- mat[,xvars]%*%coefi
+  res <- yvar-pred
+  mse[j]<-mean(res^2)}
+ 
+  return(data.frame(k=1:p, mse=mse))
+ 
+}
 
 
 ```
