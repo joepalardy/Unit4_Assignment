@@ -32,7 +32,7 @@ In this assignment, you will be predicting the average percentile rank in terms 
 ## Question 1
 In this question you will obtain predictions for kfr_pooled_p25 using only the training set to determine the number of predictors via backward and forward selection. Use only P1 through P121 as predictors. Do not include geoid, place, pop, or housing as a predictors.
 
-a. Using Cross-Validation, select the number of predictors via best MSE or one-standard-error rule.
+a. Using Cross-Validation, select the number of predictors via best MSE or one-standard-error rule. (find the order)
 b. Estimate the the model using the full training data (not just the folds) using the number of predictors from a.
 c. How many predictors did you select? Were the selections very different between forward and backward selection?
 d. Calculate the in-sample training MSE.
